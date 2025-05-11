@@ -62,19 +62,12 @@ const ZoomableImage = ({ source, style, gestureEnabled }: any) => {
   const combinedGesture = Gesture.Simultaneous(pinchGesture, panGesture);
 
   const animatedStyle = useAnimatedStyle(() => {
-    console.log(isZoomed.value, " KJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
     return {
       transform: [
         { scale: scale.value },
         { translateX: translateX.value },
         { translateY: translateY.value },
       ],
-      // position: "relative",
-      // top: isZoomed.value ? 0 : undefined,
-      // left: isZoomed.value ? 0 : undefined,
-      // width: isZoomed.value ? width : "100%",
-      // height: isZoomed.value ? height : "100%",
-      // zIndex: isZoomed.value ? 9999 : 0,
     };
   });
 

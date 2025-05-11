@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Dimensions, FlatList, StyleSheet, View } from "react-native";
 import ZoomableImage from "@/components/ZoomableImage";
 
-const { height, width } = Dimensions.get("screen");
+const { height, width } = Dimensions.get("window");
 
 const imageUris = [
   "https://media.istockphoto.com/id/814423752/photo/eye-of-model-with-colorful-art-make-up-close-up.jpg?s=612x612&w=0&k=20&c=l15OdMWjgCKycMMShP8UK94ELVlEGvt7GmB_esHWPYE=",
@@ -24,7 +24,7 @@ const App = () => {
   });
 
   return (
-    <View style={{ height: height * 0.6 }}>
+    <View style={styles.container}>
       <FlatList
         data={imageUris}
         horizontal
@@ -32,12 +32,13 @@ const App = () => {
         scrollEventThrottle={16}
         keyExtractor={(item, index) => `image-${index}`}
         renderItem={({ item, index }) => (
-          <ZoomableImage
-            source={{
-              uri: item,
-            }}
-            gestureEnabled={index === focusedIndex}
-          />
+          <View style={styles.itemContainer}>
+            <ZoomableImage
+              source={{ uri: item }}
+              style={styles.image}
+              gestureEnabled={index === focusedIndex}
+            />
+          </View>
         )}
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged.current}
@@ -48,10 +49,20 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  imageContainer: {
+  container: {
+    flex: 1,
+    backgroundColor: "black",
+  },
+  itemContainer: {
     width,
-    height: height * 0.6,
-    backgroundColor: "red",
+    height,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width,
+    height,
+    resizeMode: "contain",
   },
 });
 
